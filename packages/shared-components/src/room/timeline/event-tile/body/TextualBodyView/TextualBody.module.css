@@ -39,6 +39,12 @@
 
 .annotated {
     display: flex;
+
+    /* Let the body shrink below its min-content width (e.g. wide code blocks),
+       so the surrounding text wraps within the tile instead of overflowing. */
+    > :first-child {
+        min-width: 0;
+    }
 }
 
 .annotatedInline {

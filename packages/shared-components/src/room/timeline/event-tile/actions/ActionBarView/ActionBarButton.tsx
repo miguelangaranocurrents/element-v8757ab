@@ -55,6 +55,14 @@ export function ActionBarButton({
         onActivate?.(event.currentTarget);
     };
 
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+        // Don't let the click reach the event tile, which may have its own click handler
+        // (e.g. opening the thread when clicking a tile in the threads list).
+        event.preventDefault();
+        event.stopPropagation();
+        onActivate?.(event.currentTarget);
+    };
+
     return (
         <Tooltip description={tooltipDescription ?? label} caption={tooltipCaption} placement="top">
             <Button
@@ -67,7 +75,7 @@ export function ActionBarButton({
                 aria-pressed={ariaPressed}
                 aria-expanded={ariaExpanded}
                 disabled={disabled}
-                onClick={(event) => onActivate?.(event.currentTarget)}
+                onClick={handleClick}
                 onContextMenu={handleContextMenu}
                 onFocus={disabled ? undefined : onFocus}
                 className={styles.toolbar_item}
